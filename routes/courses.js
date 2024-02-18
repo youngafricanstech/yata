@@ -190,40 +190,85 @@ router.post(
   }
 );
 
+// router.get("/:id/delete", isAdmin, async (req, res) => {
+//   Course.findById(req.params.id, function (err, course) {
+//     var splittedKey = course.logo.replace(process.env.SPLITTED, "");
+//     const awsCredentials = {
+//       secretAccessKey: process.env.S3_SECRECT,
+//       accessKeyId: process.env.AWS_ACCESS_KEY,
+//       region: process.env.S3_REGION,
+//     };
+//     var s3 = new AWS.S3(awsCredentials);
+//     const params = {
+//       Bucket: process.env.S3_BUCKET,
+//       Key: splittedKey,
+//     };
+//     s3.deleteObject(params, (error, data) => {
+//       if (error) {
+//         res.status(500).send(error);
+//       } else {
+//         const ObjectId = mongoose.Types.ObjectId;
+
+//         let query = { _id: new ObjectId(req.params.id) };
+
+//         course.deleteOne(query, function (err) {
+//           if (err) {
+//             console.log(err);
+//             res.redirect("back");
+//           }
+//           res.redirect("/courses");
+//           console.log("deleted successfully");
+//         });
+//         console.log("File has been deleted successfully");
+//       }
+//       // res.s
+//     });
+//   });
+// });
+
 router.get("/:id/delete", isAdmin, async (req, res) => {
-  Course.findById(req.params.id, function (err, course) {
-    var splittedKey = course.logo.replace(process.env.SPLITTED, "");
+  try {
+    const course = await Course.findById(req.params.id);
+    if (!course) {
+      console.log("Course not found");
+      return res.redirect("/courses");
+    }
+
+    const splittedKey = course.logo.replace(process.env.SPLITTED, "");
     const awsCredentials = {
       secretAccessKey: process.env.S3_SECRECT,
       accessKeyId: process.env.AWS_ACCESS_KEY,
       region: process.env.S3_REGION,
     };
-    var s3 = new AWS.S3(awsCredentials);
+    const s3 = new AWS.S3(awsCredentials);
+
     const params = {
       Bucket: process.env.S3_BUCKET,
       Key: splittedKey,
     };
+
     s3.deleteObject(params, (error, data) => {
       if (error) {
-        res.status(500).send(error);
-      } else {
-        const ObjectId = mongoose.Types.ObjectId;
-
-        let query = { _id: new ObjectId(req.params.id) };
-
-        course.deleteOne(query, function (err) {
-          if (err) {
-            console.log(err);
-            res.redirect("back");
-          }
-          res.redirect("/courses");
-          console.log("deleted successfully");
-        });
-        console.log("File has been deleted successfully");
+        console.error("Error deleting file from S3:", error);
+        return res.status(500).send(error);
       }
-      // res.s
+
+      const ObjectId = mongoose.Types.ObjectId;
+      const query = { _id: new ObjectId(req.params.id) };
+
+      course.deleteOne(query, (err) => {
+        if (err) {
+          console.error("Error deleting course from the database:", err);
+          return res.status(500).send(err);
+        }
+        console.log("Course and associated file deleted successfully");
+        res.redirect("/courses");
+      });
     });
-  });
+  } catch (error) {
+    console.error("Error in delete route:", error);
+    res.status(500).send(error);
+  }
 });
 
 //Handles the redirects

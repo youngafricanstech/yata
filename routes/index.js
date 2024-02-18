@@ -26,12 +26,25 @@ router.get("/", async (req, res, next) => {
 // router.get("/", forwardAuthenticated, (req, res) => res.render("index"));
 
 // Dashboard
-router.get("/dashboard", ensureAuthenticated, (req, res) =>
-  res.render("dashboard", {
-    user: req.user,
-    layout: false,
-  })
-);
+// router.get("/dashboard", ensureAuthenticated, (req, res) =>
+//   res.render("dashboard", {
+//     user: req.user,
+//     layout: false,
+//   })
+// );
 
-module.exports = router;
+router.get("/dashboard", ensureAuthenticated, (req, res) => {
+  try {
+    console.log("dkajkdddddddddddddddddddddddd");
+    console.log(req.flash("error_msg")); // Log flash messages (if any)
+    res.render("dashboard", {
+      user: req.user,
+      layout: false,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 module.exports = router;

@@ -11,7 +11,6 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const crypto = require("crypto");
 
-
 /* GET users listing. */
 router.get("/login", function (req, res, next) {
   res.render("users/login", {
@@ -96,12 +95,29 @@ router.post("/login", (req, res, next) => {
 });
 
 // Logout
-router.get("/logout", (req, res) => {
-  req.logout();
-  req.flash("success_msg", "You are logged out");
-  res.redirect("/users/login", { layout: false });
-});
+router.get("/logout", async (req, res) => {
+  try {
+    // Logout is not promise-based, so we wrap it in a promise
+    const logoutPromise = () =>
+      new Promise((resolve, reject) => {
+        req.logout((err) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve();
+          }
+        });
+      });
 
+    await logoutPromise();
+
+    req.flash("success_msg", "You are logged out");
+    res.redirect("/users/login");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 // Render Change Password Form
 router.get("/change-password", (req, res) => {
@@ -109,8 +125,6 @@ router.get("/change-password", (req, res) => {
     layout: false,
   });
 });
-
-
 
 // Change Password
 router.post("/change-password", ensureAuthenticated, async (req, res) => {
@@ -149,10 +163,6 @@ router.post("/change-password", ensureAuthenticated, async (req, res) => {
   }
 });
 
-
-
-
-
 // Forgot Password send link
 router.post("/forgot-password", async (req, res) => {
   const { email } = req.body;
@@ -178,12 +188,15 @@ router.post("/forgot-password", async (req, res) => {
   await user.save();
 
   // Define the email content using SendGrid
-  const resetLink = `${req.protocol}://${req.get("host")}/users/reset-password-form?token=${resetToken}`;
+  const resetLink = `${req.protocol}://${req.get(
+    "host"
+  )}/users/reset-password-form?token=${resetToken}`;
   const msg = {
     to: user.email,
     from: "register@youngafricanstech.org", // Replace with your sender email
     subject: "Password Reset Request",
-    html: `<p>You are receiving this email because you (or someone else) have requested to reset the password for your account.</p>` +
+    html:
+      `<p>You are receiving this email because you (or someone else) have requested to reset the password for your account.</p>` +
       `<p>Please click on the following link or paste it into your browser to complete the process:</p>` +
       `<a href="${resetLink}">${resetLink}</a>` +
       `<p>The link is valid for one hour.</p>` +
@@ -191,25 +204,29 @@ router.post("/forgot-password", async (req, res) => {
   };
 
   // Send the email using SendGrid
-  sgMail.send(msg)
+  sgMail
+    .send(msg)
     .then(() => {
-      req.flash("success_msg", "An email with instructions to reset your password has been sent.");
+      req.flash(
+        "success_msg",
+        "An email with instructions to reset your password has been sent."
+      );
       res.redirect("/users/login");
     })
     .catch((error) => {
       console.error(error);
-      req.flash("error_msg", "Error sending the email. Please try again later.");
+      req.flash(
+        "error_msg",
+        "Error sending the email. Please try again later."
+      );
       res.redirect("/users/forgot-password");
     });
 });
-
-
 
 // forgot password form
 router.get("/forgot-password", (req, res) => {
   res.render("users/forgot-password-form", { layout: false });
 });
-
 
 // reset password form
 router.get("/reset-password-form", (req, res) => {
@@ -247,11 +264,11 @@ router.post("/reset-password-form", async (req, res) => {
 
   await user.save();
 
-  req.flash("success_msg", "Password reset successful. You can now log in with your new password.");
+  req.flash(
+    "success_msg",
+    "Password reset successful. You can now log in with your new password."
+  );
   res.redirect("/users/login");
 });
-
-
-
 
 module.exports = router;
