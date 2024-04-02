@@ -308,13 +308,18 @@ router.post("/send", async (req, res) => {
             html: theMessage,
           };
 
-          sgMail.send(msg);
-          sgMail.send(secondMessage);
-
-          // Send the appropriate response after sending emails
-          res
-            .status(200)
-            .json({ message: "Python script executed successfully" });
+          sgMail.send(msg, (error, result) => {
+            if (error) {
+              console.error(error);
+              return res.status(500).json({ error: "Error sending email" });
+            } else {
+              console.log("Email sent successfully");
+              sgMail.send(secondMessage);
+              res
+                .status(200)
+                .json({ message: "Python script executed successfully" });
+            }
+          });
         } else {
           console.log("check body, name, or success");
           res.status(400).json({ error: "Check body, name, or success" });
