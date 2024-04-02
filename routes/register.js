@@ -239,16 +239,16 @@ router.post("/send", async (req, res) => {
       req.body.interviewdate,
     ]);
 
-    child_python.stdout.on("data", (data) => {
-      email_link = data.toString();
-    });
+    // child_python.stdout.on("data", (data) => {
+    //   email_link = data.toString();
+    // });
 
-    child_python.stderr.on("data", (data) => {
-      console.log("stderr: " + data);
-    });
+    // child_python.stderr.on("data", (data) => {
+    //   console.log("stderr: " + data);
+    // });
 
-    child_python.on("close", async (code) => {
-      console.log("just closing now: " + code);
+    // child_python.on("close", async (code) => {
+    //   console.log("just closing now: " + code);
 
       try {
         const response = await axios.get(googleVerifyUrl);
