@@ -233,22 +233,22 @@ router.post("/send", async (req, res) => {
   var email_link = "";
   try {
     const googleVerifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${req.body["g-recaptcha-response"]}`;
-    // const child_python = spawn("python3", [
-    //   "routes/sendcalendar.py",
-    //   req.body.email,
-    //   req.body.interviewdate,
-    // ]);
+    const child_python = spawn("python3", [
+      "routes/sendcalendar.py",
+      req.body.email,
+      req.body.interviewdate,
+    ]);
 
-    // child_python.stdout.on("data", (data) => {
-    //   email_link = data.toString();
-    // });
+    child_python.stdout.on("data", (data) => {
+      email_link = data.toString();
+    });
 
-    // child_python.stderr.on("data", (data) => {
-    //   console.log("stderr: " + data);
-    // });
+    child_python.stderr.on("data", (data) => {
+      console.log("stderr: " + data);
+    });
 
-    // child_python.on("close", async (code) => {
-    //   console.log("just closing now: " + code);
+    child_python.on("close", async (code) => {
+      console.log("just closing now: " + code);
 
       try {
         const response = await axios.get(googleVerifyUrl);
