@@ -249,14 +249,6 @@ router.post("/send", async (req, res) => {
 
     child_python.on("close", async (code) => {
       console.log("just closing now: " + code);
-      console.log(email_link, "This is email link");
-      console.log(req.body.email, "this is email");
-      console.log(process.env.SENDGRID_API_KEY, "Sendgrid API KEY");
-      console.log(
-        req.body.parent_firstname,
-        req.body.parent_lastname,
-        req.body.childs_fullname
-      );
 
       try {
         const response = await axios.get(googleVerifyUrl);
