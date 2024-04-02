@@ -16,7 +16,6 @@ $(document).ready(function () {
 
       var form = $(this);
       var formData = form.serialize();
-      console.log(formData);
       $.ajax({
         type: "POST",
         url: "/register/send",
