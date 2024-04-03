@@ -141,7 +141,7 @@ async function sendEmailConfirmation(
     from: "register@youngafricanstech.org", // Replace with your SendGrid verified email
     subject: "Registration Confirmation",
     html: `
-      <h4>Your Registration code is: ${registrationCode}</h4> Dear <em>${parent_firstname} ${parent_lastname}</em>,<p>We extend our appreciation for your registration with Young Africans Tech.</p>
+      <h4>Your Registration code is ${registrationCode}</h4> Dear <em>${parent_firstname} ${parent_lastname}</em>,<p>We extend our appreciation for your registration with Young Africans Tech.</p>
 
     <p><strong>Important Steps for Successful Program Admission</strong><br>To ensure your eligibility for our programs, please adhere to the following admission process steps:</p>
 
