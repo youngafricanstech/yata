@@ -13,9 +13,10 @@ router.post("/send", async (req, res) => {
     return res.status(400).json({ error: "reCaptcha token is missing" });
   }
 
+  let msg; // Define msg variable here
+
   try {
-    const googleVerifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}
-        &response=${req.body["g-recaptcha-response"]}`;
+    const googleVerifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${req.body["g-recaptcha-response"]}`;
 
     const response = await axios.post(googleVerifyUrl);
     console.log(response);
@@ -27,16 +28,16 @@ router.post("/send", async (req, res) => {
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
         const output = `
-      				<h3>Contact Details </h3>
-      				<ul>
-          				<li><h1>Name: ${req.body.sender}</h1></li>
-          				<li>Email: ${req.body.email}</li>
-                  <li>Phone: ${req.body.phone}</li>
-                  <li>Subject: ${req.body.subject}</li>
-      				</ul>
-      				<h3>Message</h3>
-					  <p>Request: ${req.body.message}</p>
-					  `;
+          <h3>Contact Details </h3>
+          <ul>
+              <li><h1>Name: ${req.body.sender}</h1></li>
+              <li>Email: ${req.body.email}</li>
+              <li>Phone: ${req.body.phone}</li>
+              <li>Subject: ${req.body.subject}</li>
+          </ul>
+          <h3>Message</h3>
+          <p>Request: ${req.body.message}</p>
+        `;
 
         const msg = {
           to: "info@youngafricanstech.org",
@@ -49,14 +50,15 @@ router.post("/send", async (req, res) => {
         res.json(msg);
       } catch (error) {
         console.log(error);
+        res.status(500).json({ error: "Internal server error" });
       }
     } else {
       console.log("check body, name or success");
-      res.json(msg);
+      res.status(400).json({ error: "Invalid request" });
     }
   } catch (e) {
     console.log(e);
-    res.json(msg);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
