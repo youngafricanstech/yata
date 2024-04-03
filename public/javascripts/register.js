@@ -28,7 +28,7 @@ $(document).ready(function () {
 
             // window.location.href = "/success";
             successmessage.innerHTML =
-              "Interview Booking submitted successfully! Please check your email";
+              "Interview Booking submitted successfully! Please check your email ";
             messageBox.style.display = "block";
           } else {
             grecaptcha.reset();
