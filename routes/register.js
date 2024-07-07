@@ -141,49 +141,46 @@ async function sendEmailConfirmation(
     from: "register@youngafricanstech.org", // Replace with your SendGrid verified email
     subject: "Registration Confirmation",
     html: `
-      <h4>Your Registration code is: ${registrationCode}</h4> Dear <em>${parent_firstname} ${parent_lastname}</em>,<p>We extend our appreciation for your registration with Young Africans Tech.</p>
-
-    <p><strong>Important Steps for Successful Program Admission</strong><br>To ensure your eligibility for our programs, please adhere to the following admission process steps:</p>
-
-    <strong>Step 1: Tutorial for Assessment</strong><br><p>Kindly watch the three tutorials provided by us, meticulously following the instructions therein. It is imperative that you comprehend and replicate the actions demonstrated in each video.</p>
-
-        - <em>Video 1:</em> Install Python, Git Bash, and Visual Studio Code on your computer. 
-        Watch the tutorial <a href="https://youtu.be/8bGpZ91Zhu0" target="_blank">"https://youtu.be/8bGpZ91Zhu0"</a>.
-        <br>
-
-        - <em>Video 2:</em> Learn Linux Commands with Git Bash on Windows. 
-        Watch the tutorial <a href="https://youtu.be/YEyJVrpB-_4" target="_blank">"https://youtu.be/YEyJVrpB-_4"</a>.
-        <br>
-
-        - <em>Video 3:</em> Learn Python variables as demonstrated in this tutorial. 
-        Watch the tutorial <a href="https://youtu.be/nMVozkBYpMY" target="_blank">"https://youtu.be/nMVozkBYpMY"</a>
-        <br>
-
-        - <em>Video 4:</em> Learn Python List/Array as demonstrated in this tutorial. 
-        Watch the tutorial <a href="https://youtu.be/CVHN9-6bbYA" target="_blank">"https://youtu.be/CVHN9-6bbYA"</a>
-
-
-    <p><strong>Step 2: Interview Booking</strong><br>Upon completion of the tutorials, execute the practical tasks outlined and ensure a thorough understanding of the content. Subsequently, use the provided registration code to book your interview via the link below. Failure to enter your registration code may impede your ability to schedule an interview.</p>
-
-    <p>Click <a href="https://www.youngafricanstech.org/register/newverification">https://www.youngafricanstech.org/register/newverification</a> to book for your interview after completing the assessment tutorials above.
-    after clicking on the above interview booking link above, enter your registration code ${registrationCode} in the input form and click verify, if your registration code is entered correctly it will take you to the page whe you will book your interview
-    </p>
-
-    <p>You have a two-week window to study and learn from the video tutorials and to schedule your interview. It is imperative that you book your interview within this timeframe. Failure to do so before the two weeks expire will result in the automatic deletion of your registration data from our system. After this point, you will no longer be able to schedule your interview.</p>
-
-
-    The interview questions will be based on the material covered in the above video tutorials, and a minimum passing score of 70 percent is required for program acceptance.<br>
-
-    Should you have any queries or require clarification on the procedures or tutorials, please do not hesitate to contact us. Our contact details are as follows:
-
-    <p>- <em>Cell Phone:</em> <code>+27849614744</code><br>
-    - <em>Email:</em> <code>register@youngafricanstech.org</code></p>
-
-    We appreciate your commitment to Young Africans Tech and look forward to your successful completion of the admission process.<br>
-
-    <h5>Kind regards,<br>
-    Young Africans Tech</h5>
-
+      <div style="font-family: Arial, sans-serif; color: #333;">
+        <h2 style="color: #2a9d8f;">Registration Confirmation</h2>
+        <p><strong>Your Registration Code:</strong> <span style="color: #e76f51;">${registrationCode}</span></p>
+  
+        <p>Dear <em>${parent_firstname} ${parent_lastname}</em>,</p>
+  
+        <p>Thank you for registering with Young Africans Tech. We appreciate your interest and are excited to have you join us.</p>
+  
+        <h3 style="color: #2a9d8f;">Important Steps for Successful Program Admission</h3>
+        <p>To ensure your eligibility for our programs, please follow these steps:</p>
+  
+        <h4>Step 1: Tutorial for Assessment</h4>
+        <p>Please watch the three tutorials provided by us and follow the instructions carefully. It is important that you understand and replicate the actions demonstrated in each video.</p>
+  
+        <ul>
+          <li><em>Video 1:</em> Install Python, Git Bash, and Visual Studio Code on your computer. <a href="https://youtu.be/8bGpZ91Zhu0" target="_blank" style="color: #e76f51;">Watch the tutorial</a></li>
+          <li><em>Video 2:</em> Learn Linux Commands with Git Bash on Windows. <a href="https://youtu.be/YEyJVrpB-_4" target="_blank" style="color: #e76f51;">Watch the tutorial</a></li>
+          <li><em>Video 3:</em> Learn Python variables. <a href="https://youtu.be/nMVozkBYpMY" target="_blank" style="color: #e76f51;">Watch the tutorial</a></li>
+          <li><em>Video 4:</em> Learn Python List/Array. <a href="https://youtu.be/CVHN9-6bbYA" target="_blank" style="color: #e76f51;">Watch the tutorial</a></li>
+        </ul>
+  
+        <h4>Step 2: Interview Booking</h4>
+        <p>After completing the tutorials and practical tasks, book your interview using the registration code via the link below:</p>
+        <p><a href="https://www.youngafricanstech.org/register/newverification" target="_blank" style="color: #e76f51;">Book your interview</a></p>
+        <p>Enter your registration code <strong>${registrationCode}</strong> in the input form and click verify. If the code is correct, it will take you to the page to book your interview.</p>
+  
+        <p>You have a two-week window to study the video tutorials and schedule your interview. Failure to book within this timeframe will result in the deletion of your registration data.</p>
+  
+        <p>The interview questions will be based on the tutorial material, and a minimum score of 70% is required for program acceptance.</p>
+  
+        <h4>Contact Us</h4>
+        <p>If you have any questions, please contact us:</p>
+        <p><strong>Cell Phone:</strong> <code>+27849614744</code><br>
+        <strong>Email:</strong> <code>register@youngafricanstech.org</code></p>
+  
+        <p>We look forward to your successful completion of the admission process.</p>
+  
+        <h5 style="color: #2a9d8f;">Kind regards,<br>
+        Young Africans Tech</h5>
+      </div>
     `,
   };
 

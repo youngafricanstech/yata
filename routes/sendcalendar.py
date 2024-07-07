@@ -7,6 +7,7 @@ import os.path
 import sys
 from datetime import datetime
 
+
 first = "2023-11-17"
 email = "info@youngafricanstech.org"
 if len(sys.argv) >= 3:
