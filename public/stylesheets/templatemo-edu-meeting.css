@@ -208,7 +208,6 @@ body {
 }
 
 @media (max-width: 991px) {
-
   html,
   body {
     overflow-x: hidden;
@@ -315,7 +314,6 @@ header
    color: #f5a425;
 } */
 
-
 .background-header {
   background-color: #047575 !important;
   height: 80px !important;
@@ -333,7 +331,6 @@ header
 .background-header .logo,
 .background-header .main-nav .nav li a {
   color: #ffffff !important;
-
 }
 
 .background-header .main-nav .nav li:hover a {
@@ -376,7 +373,6 @@ header
   transition: all 0.3s ease 0s;
   /* text-shadow: 2px 2px #000000; */
   text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
-
 }
 
 .background-header .main-nav .logo {
@@ -614,7 +610,6 @@ header
 
 .background-header .main-nav .menu-trigger.active span:before {
   background-color: #1e1e1e;
-
 }
 
 .header-area .main-nav .menu-trigger.active span:after {
@@ -649,7 +644,6 @@ header
 
   .header-area .main-nav:before {
     display: none;
-
   }
 }
 
@@ -754,7 +748,6 @@ header
 
   .header-area .main-nav .nav li.submenu ul li a:hover:before {
     width: 0px;
-
   }
 
   .header-area .main-nav .nav li.has-sub ul.sub-menu {
@@ -766,7 +759,6 @@ header
     right: 30px;
     font-size: 14px;
     top: 15px;
-
   }
 
   .header-area .main-nav .nav li.submenu:hover ul,
@@ -1215,13 +1207,12 @@ courses
 --------------------------------------------- 
 */
 
-section.our-courses {
+/* section.our-courses {
   background-image: url(../images/meetings-bg.jpg);
   background-position: center center;
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
-  /* padding-top: 140px; */
   padding-bottom: 130px;
 }
 
@@ -1354,7 +1345,7 @@ section.our-courses {
   height: 50px;
   border-radius: 50%;
   line-height: 50px;
-}
+} */
 
 /*
 ---------------------------------------------
@@ -1369,7 +1360,7 @@ section.our-facts {
   background-repeat: no-repeat;
   background-size: cover;
   padding: 140px 0px 125px 0px;
-  opacity: 1
+  opacity: 1;
 }
 
 section.our-facts h2 {
@@ -1598,7 +1589,7 @@ upcoming meetings page
 ---------------------------------------------
 */
 
-section.meetings-page {
+/* section.meetings-page {
   background-image: url(../images/meetings-page-bg.jpg);
   background-position: center center;
   background-attachment: fixed;
@@ -1785,7 +1776,7 @@ section.meetings-page .pagination ul li a:hover {
 
 .meeting-single-item .down-content .share ul li a:hover {
   color: #f5a425;
-}
+} */
 
 /* Meeting item column */
 .templatemo-item-col {
